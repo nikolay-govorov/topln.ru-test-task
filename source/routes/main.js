@@ -1,4 +1,4 @@
-const manifest = require('../../dist/manifest');
+const manifest = require('../../dist/manifest.json');
 
 module.exports = (request, response) => {
   response.render('index', {

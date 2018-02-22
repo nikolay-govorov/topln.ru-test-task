@@ -1,4 +1,4 @@
-jest.mock('../../dist/manifest', () => ({ 'main.js': 'main.hash.js' }), { virtual: true });
+jest.mock('../../dist/manifest.json', () => ({ 'main.js': 'main.hash.js' }), { virtual: true });
 
 const mainRoute = require('./main');
 
