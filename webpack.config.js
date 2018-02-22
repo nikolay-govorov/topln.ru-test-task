@@ -93,14 +93,6 @@ module.exports = {
     new ManifestPlugin(),
 
     ...(env === 'production' ? [
-      new webpack.optimize.UglifyJsPlugin({
-        sourceMap: true,
-
-        compress: {
-          warnings: false,
-        },
-      }),
-
       new webpack.LoaderOptionsPlugin({
         minimize: true,
       }),
