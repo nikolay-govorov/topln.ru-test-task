@@ -8,14 +8,7 @@ beforeAll(() => {
     .filter(file => !testFileRegexp.test(file));
 
   routes.forEach((name) => {
-    const path = `./routes/${name}`;
-
-    jest.mock(path);
-
-    // eslint-disable-next-line import/no-dynamic-require, global-require
-    const route = require(path);
-
-    route.mockImplementation((_, response) => response.end());
+    jest.mock(`./routes/${name}`, () => (_, response) => response.end(), { virtual: true });
   });
 });
 
