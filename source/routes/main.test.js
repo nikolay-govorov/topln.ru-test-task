@@ -12,5 +12,5 @@ test('Must return "Hello world" string', () => {
   mainRoute({}, { render });
 
   expect(render.mock.calls)
-    .toEqual([['index', { title: 'TopLN.ru | Test task', script: 'main.hash.js' }]]);
+    .toEqual([['index', { title: 'TopLN.ru | Test task', script: '/dist/main.hash.js' }]]);
 });
