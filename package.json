@@ -1,0 +1,13 @@
+{
+  "name": "topln-ru-test-task",
+  "version": "0.1.0",
+  "description": "Test task for full stack JS developer position in the company topln.ru",
+  "main": "source/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "repository": "nikolay-govorov/topln.ru-test-task",
+  "author": "Nikolay Govorov <nikolay_govorov@bk.ru>",
+  "license": "UNLICENSE",
+  "homepage": "https://topln-ru.herokuapp.com"
+}
