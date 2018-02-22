@@ -4,6 +4,7 @@
   "description": "Test task for full stack JS developer position in the company topln.ru",
   "main": "source/index.js",
   "scripts": {
+    "build": "NODE_ENV=production webpack",
     "start": "node source/index.js",
     "lint": "eslint source/{,**}.js",
     "test": "npm run lint && jest --coverage"
