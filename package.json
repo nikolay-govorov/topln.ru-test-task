@@ -5,10 +5,14 @@
   "main": "source/index.js",
   "scripts": {
     "start": "node source/index.js",
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "jest"
   },
   "repository": "nikolay-govorov/topln.ru-test-task",
   "author": "Nikolay Govorov <nikolay_govorov@bk.ru>",
   "license": "UNLICENSE",
-  "homepage": "https://topln-ru.herokuapp.com"
+  "homepage": "https://topln-ru.herokuapp.com",
+  "dependencies": {
+    "express": "^4.16.2",
+    "jest": "^22.4.0"
+  }
 }

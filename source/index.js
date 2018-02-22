@@ -1,12 +1,12 @@
-const http = require('http');
+const express = require('express');
+
+const router = require('./router');
 
 const { PORT: port = 8080 } = process.env;
 
-const app = http.createServer((response, request) => {
-  request.write('Hello Topln.ru');
+const app = express();
 
-  request.end();
-});
+app.use(router);
 
 app.listen(port, (error) => {
   if (error) {
