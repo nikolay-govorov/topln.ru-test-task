@@ -1,3 +1,5 @@
+jest.mock('../../dist/manifest', () => ({ 'main.js': 'main.hash.js' }), { virtual: true });
+
 const mainRoute = require('./main');
 
 test('Must be function', () => {
@@ -5,9 +7,10 @@ test('Must be function', () => {
 });
 
 test('Must return "Hello world" string', () => {
-  const send = jest.fn();
+  const render = jest.fn();
 
-  mainRoute({}, { send });
+  mainRoute({}, { render });
 
-  expect(send.mock.calls).toEqual([['Hello world']]);
+  expect(render.mock.calls)
+    .toEqual([['index', { title: 'TopLN.ru | Test task', script: 'main.hash.js' }]]);
 });
