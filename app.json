@@ -1,7 +1,0 @@
-{
-  "name": "topln.ru-test-task",
-
-  "scripts": {
-    "postdeploy": "npm run build"
-  }
-}
