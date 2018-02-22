@@ -12,6 +12,7 @@ beforeAll(() => {
 
     jest.mock(path);
 
+    // eslint-disable-next-line import/no-dynamic-require, global-require
     const route = require(path);
 
     route.mockImplementation((_, response) => response.end());
@@ -19,6 +20,7 @@ beforeAll(() => {
 });
 
 test('Must call routes', (done) => {
+  // eslint-disable-next-line global-require
   const router = require('./router');
 
   router.handle({ url: '/', method: 'GET' }, { end: done });

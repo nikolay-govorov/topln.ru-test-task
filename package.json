@@ -5,14 +5,28 @@
   "main": "source/index.js",
   "scripts": {
     "start": "node source/index.js",
-    "test": "jest"
+    "lint": "eslint source/{,**}.js",
+    "test": "npm run lint && jest --coverage"
   },
   "repository": "nikolay-govorov/topln.ru-test-task",
   "author": "Nikolay Govorov <nikolay_govorov@bk.ru>",
   "license": "UNLICENSE",
   "homepage": "https://topln-ru.herokuapp.com",
   "dependencies": {
+    "eslint": "^4.18.1",
     "express": "^4.16.2",
     "jest": "^22.4.0"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0"
+  },
+  "eslintConfig": {
+    "extends": "airbnb-base",
+    "env": {
+      "node": true,
+      "jest": true,
+      "browser": true
+    }
   }
 }

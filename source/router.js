@@ -7,6 +7,7 @@ const routes = [
 ];
 
 routes.forEach(({ name, method, path }) => {
+  // eslint-disable-next-line import/no-dynamic-require, global-require
   router[method](path, require(`./routes/${name}`));
 });
 
