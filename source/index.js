@@ -1,9 +1,8 @@
 const { join } = require('path');
 const express = require('express');
 
+const config = require('./lib/config');
 const router = require('./router');
-
-const { PORT: port = 8080 } = process.env;
 
 const app = express();
 
@@ -16,10 +15,10 @@ app.set('views', 'source/layouts');
 
 app.use(router);
 
-app.listen(port, (error) => {
+app.listen(config.get('port'), (error) => {
   if (error) {
     console.error(error); return;
   }
 
-  console.log(`The server listens to port ${port}`);
+  console.log(`The server listens to port ${config.get('port')}`);
 });

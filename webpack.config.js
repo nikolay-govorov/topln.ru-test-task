@@ -2,14 +2,14 @@ const { join } = require('path');
 const webpack = require('webpack');
 const ManifestPlugin = require('webpack-manifest-plugin');
 
-const { NODE_ENV: env = 'development' } = process.env;
+const config = require('./source/lib/config');
 
 module.exports = {
   context: join(__dirname, 'source', 'client'),
 
   entry: './index',
 
-  devtool: env === 'production' ? '#source-map' : '#eval-source-map',
+  devtool: config.get('env') === 'production' ? '#source-map' : '#eval-source-map',
 
   output: {
     path: join(__dirname, 'dist'),
@@ -86,13 +86,13 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(env),
+        NODE_ENV: JSON.stringify(config.get('env')),
       },
     }),
 
     new ManifestPlugin(),
 
-    ...(env === 'production' ? [
+    ...(config.get('env') === 'production' ? [
       new webpack.LoaderOptionsPlugin({
         minimize: true,
       }),
