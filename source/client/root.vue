@@ -4,14 +4,14 @@
 
 <script>
   export default {
-    name: 'root',
+    name: 'Root',
 
     data() {
       return {
         message: 'Hello TopLN.ru',
       };
     },
-  }
+  };
 </script>
 
 <style lang="scss">

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "NODE_ENV=production webpack",
     "start": "node source/index.js",
-    "lint": "eslint source/{,**}.js",
+    "lint": "eslint *.js {source,migrations}/**/*.{vue,js}",
     "test": "npm run lint && jest --coverage"
   },
   "repository": "nikolay-govorov/topln.ru-test-task",
@@ -30,7 +30,11 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-loader": "^1.9.0",
     "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-vue": "^4.2.2",
     "node-sass": "^4.7.2",
+    "postcss": "^6.0.19",
+    "postcss-loader": "^2.1.0",
+    "postcss-scss": "^1.0.3",
     "sass-loader": "^6.0.6",
     "vue-loader": "^14.1.1",
     "vue-template-compiler": "^2.5.13",
@@ -44,11 +48,30 @@
     "not ie <= 8"
   ],
   "eslintConfig": {
-    "extends": "airbnb-base",
+    "extends": [
+      "airbnb-base",
+      "plugin:vue/recommended"
+    ],
     "env": {
       "node": true,
       "jest": true,
       "browser": true
+    },
+    "rules": {
+      "indent": "off",
+      "indent-legacy": [
+        "error",
+        2
+      ],
+      "vue/script-indent": [
+        "error",
+        2,
+        {
+          "baseIndent": 1,
+          "switchCase": 0,
+          "ignores": []
+        }
+      ]
     }
   }
 }
