@@ -49,8 +49,8 @@
   ],
   "eslintConfig": {
     "extends": [
-      "airbnb-base",
-      "plugin:vue/recommended"
+      "plugin:vue/recommended",
+      "airbnb-base"
     ],
     "env": {
       "node": true,

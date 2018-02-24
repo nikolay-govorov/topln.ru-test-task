@@ -1,5 +1,8 @@
-node_modules/
+# Dependencies
+/node_modules/
 
-coverage/
+# Coverage info
+/coverage/
 
-dist/
+# Build info
+/dist/
