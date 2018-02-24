@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 const manifest = require('../../dist/manifest.json');
 
 module.exports = (request, response) => {
