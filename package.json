@@ -4,6 +4,8 @@
   "description": "Test task for full stack JS developer position in the company topln.ru",
   "main": "source/index.js",
   "scripts": {
+    "dev:test": "jest --watch",
+    "dev:ui": "node ./source/index.js & webpack-dev-server",
     "build": "NODE_ENV=production webpack",
     "start": "node source/index.js",
     "lint": "eslint *.js {source,migrations}/**/*.{vue,js}",

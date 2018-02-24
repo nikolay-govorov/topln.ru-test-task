@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path: join(__dirname, 'dist'),
     publicPath: '/dist/',
-    filename: 'build.[hash].js',
+    filename: config.env === 'development' ? 'build.[hash].js' : 'build.js',
   },
 
   resolve: {
@@ -81,6 +81,9 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true,
     overlay: true,
+    proxy: {
+      '*': `http://localhost:${config.get('port')}/`,
+    },
   },
 
   plugins: [
