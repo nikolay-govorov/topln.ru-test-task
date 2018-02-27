@@ -1,8 +1,8 @@
 <template lang="pug">
   .wrapper
-    input-line
+    input-line.wrapper_input-line
 
-    statistics
+    statistics.wrapper_statistics
 </template>
 
 <script>
@@ -21,5 +21,21 @@
 </script>
 
 <style lang="scss">
-  .wrapper {}
+  .wrapper {
+    display: grid;
+
+    grid-template-areas:
+      "input-line"
+      "statistics";
+
+    grid-gap: calc(var(--step) * 2);
+  }
+
+  .wrapper_input-line {
+    grid-area: input-line;
+  }
+
+  .wrapper_statistics {
+    grid-area: statistics;
+  }
 </style>

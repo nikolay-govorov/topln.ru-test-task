@@ -5,7 +5,7 @@
   "main": "source/index.js",
   "scripts": {
     "dev:test": "jest --watch",
-    "dev:ui": "node ./source/index.js & webpack-dev-server",
+    "dev:ui": "nodemon ./source/index.js & webpack-dev-server",
     "build": "NODE_ENV=production webpack",
     "start": "node source/index.js",
     "lint": "eslint *.js {source,migrations}/**/*.{vue,js}",
@@ -16,6 +16,7 @@
   "license": "UNLICENSE",
   "homepage": "https://topln-ru.herokuapp.com",
   "dependencies": {
+    "axios": "^0.18.0",
     "convict": "^4.0.2",
     "dotenv": "^5.0.0",
     "express": "^4.16.2",
@@ -24,7 +25,7 @@
     "mysql": "^2.15.0",
     "pug": "^2.0.0-rc.4",
     "vue": "^2.5.13",
-    "vue-md-date-picker": "^1.0.15",
+    "vue-md-date-picker": "ridewn/vue-date-picker",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
@@ -64,6 +65,7 @@
       "browser": true
     },
     "rules": {
+      "no-param-reassign": "off",
       "indent": "off",
       "indent-legacy": [
         "error",

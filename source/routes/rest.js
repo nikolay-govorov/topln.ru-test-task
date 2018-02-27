@@ -1,21 +1,26 @@
 const { Router } = require('express');
 
+const db = require('../lib/db');
+
 const router = new Router();
 
-router.get('/stats/', (request, response) => {
-  response.send('get all records');
-});
+router.get('/stats/:id', async (request, response) => {
+  const connection = await db;
 
-router.post('/stats/', (request, response) => {
-  response.send('create record');
-});
+  const { id } = request.params;
 
-router.put('/stats/:id', (request, response) => {
-  response.send('update record');
-});
+  if (Number.isNaN(Number(id))) {
+    response.status(400);
+    response.send({ error: 'ID must be number' }); return;
+  }
 
-router.delete('/stats/:id', (request, response) => {
-  response.send('delete record');
+  connection.query(`SELECT * FROM stats WHERE partner_id = ${id}`, (error, results, fields) => {
+    if (error) {
+      throw error;
+    }
+
+    response.send(results);
+  });
 });
 
 module.exports = router;
