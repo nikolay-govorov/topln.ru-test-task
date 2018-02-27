@@ -6,11 +6,11 @@ test('Must be function', () => {
   expect(typeof mainRoute).toBe('function');
 });
 
-test('Must return "Hello world" string', () => {
+test('Must return markup', () => {
   const render = jest.fn();
 
   mainRoute({}, { render });
 
   expect(render.mock.calls)
-    .toEqual([['index', { title: 'TopLN.ru | Test task', script: '/dist/main.hash.js' }]]);
+    .toEqual([['index', { script: '/dist/main.hash.js' }]]);
 });
