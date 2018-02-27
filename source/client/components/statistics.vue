@@ -16,18 +16,90 @@
       | There is no information available for the selected period
 
     .statistics(v-else)
-      .statistics_table Table
+      div {{ currentStats }}
 
-      .statistics_chart Chart
+      chart(:data="chartData")
 </template>
 
 <script>
-  import { mapState } from 'vuex';
+  import { mapState, mapGetters } from 'vuex';
+
+  import Chart from './chart';
 
   export default {
     name: 'Statistics',
 
-    computed: mapState(['user', 'loading', 'timePeriod']),
+    computed: {
+      ...mapGetters(['currentStats', 'statisticsForLastMonth']),
+
+      ...mapState(['user', 'loading', 'timePeriod']),
+
+      chartData() {
+        const COUNT = 90;
+
+        let sample = this.user.statistics
+          .filter(({ date }) => (Date.now() - new Date(date).getTime()) / 1000 / 60 / 60 / 24 <= COUNT)
+          .reduce((all, record) => {
+            const date = new Date(record.date).toISOString().split('T')[0];
+
+            if (!all[date]) {
+              all[date] = [];
+            }
+
+            all[date].push(record);
+
+            return all;
+          }, {});
+
+        const { count, wallet } = Array.from(new Array(COUNT))
+          .map((_, index) => Date.now() - index * 24 * 60 * 60 * 1000).reverse()
+          .map(date => new Date(date).toISOString().split('T')[0])
+          .map((date) => ({ date, sample: sample[date] || [] }))
+          .map(({ date, sample }, index) => {
+            let count = 0;
+            let wallet = 0;
+
+            sample.forEach(({ event, event_value }) => {
+              if (['LINK_VISITOR', 'REGISTRATION'].includes(event)) {
+                count += 1;
+              } else if (event === 'PAYMENT') {
+                wallet += event_value;
+              }
+            });
+
+            return ({ count, wallet });
+          })
+          .reduce((sample, { count, wallet }) => {
+            console.log(count, wallet);
+
+            sample.count.push(count);
+            sample.wallet.push(wallet);
+
+            return sample;
+          }, { count: [], wallet: [] });
+
+
+        return {
+          labels: Array.from(new Array(30)).map((_, index) => index),
+
+          datasets: [
+            {
+              yAxisID: 'count',
+              label: 'Count',
+              borderColor: '#FC2525',
+              data: count,
+            }, {
+              yAxisID: 'wallet',
+              label: 'Wallet',
+              borderColor: '#05CBE1',
+              data: wallet
+            }
+          ]
+        };
+      },
+    },
+
+    components: { Chart },
   };
 </script>
 
@@ -39,14 +111,6 @@
   .statistics {
     display: grid;
     grid-gap: var(--step);
-    grid-template-columns: auto 1fr;
-  }
-
-  .statistics_table {
-
-  }
-
-  .statistics_chart {
-
+    grid-template-columns: minmax(380px, auto) 1fr;
   }
 </style>

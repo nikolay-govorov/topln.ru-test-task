@@ -10,7 +10,7 @@ export async function checkUserID({ commit }, id) {
   try {
     const { data: stats } = await api.get(`/stats/${id}`);
 
-    commit('setUserStats', stats);
+    commit('setUserStats', stats.filter(({ event }) => ['LINK_VISITOR', 'REGISTRATION', 'PAYMENT'].includes(event)));
   } catch (error) {
     commit('userLoadingError');
   }
