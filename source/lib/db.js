@@ -1,5 +1,15 @@
-const { Client } = require('pg');
+const mysql = require('mysql');
 
 const config = require('./config');
 
-module.exports = new Client(config.get('db'));
+const connection = mysql.createConnection(config.get('db'));
+
+module.exports = new Promise((resolve, reject) => {
+  connection.connect((error) => {
+    if (error) {
+      reject(error); return;
+    }
+
+    resolve(connection);
+  });
+});

@@ -6,3 +6,6 @@
 
 # Build info
 /dist/
+
+# Secure info
+.env
