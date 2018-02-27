@@ -1,0 +1,1 @@
+test('Must be Router', () => {});

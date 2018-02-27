@@ -2,13 +2,7 @@ const { Router } = require('express');
 
 const router = new Router();
 
-const routes = [
-  { name: 'main', method: 'get', path: '/' },
-];
-
-routes.forEach(({ name, method, path }) => {
-  // eslint-disable-next-line import/no-dynamic-require, global-require
-  router[method](path, require(`./routes/${name}`));
-});
+router.use('/api', require('./routes/main'));
+router.get('/', require('./routes/main'));
 
 module.exports = router;
