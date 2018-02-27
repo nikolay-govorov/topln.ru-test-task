@@ -1,8 +1,7 @@
 import api from '../utils/api';
 
-// eslint-disable-next-line
 export async function checkUserID({ commit }, id) {
-  this.commit('setUserId', id);
+  commit('setUserId', id);
 
   if (!id || Number.isNaN(Number(id))) {
     return;
@@ -11,8 +10,12 @@ export async function checkUserID({ commit }, id) {
   try {
     const { data: stats } = await api.get(`/stats/${id}`);
 
-    this.commit('setUserStats', stats);
+    commit('setUserStats', stats);
   } catch (error) {
-    this.commit('userLoadingError');
+    commit('userLoadingError');
   }
+}
+
+export function checkTimePeriod({ commit }, { start, end }) {
+  commit('setTimePeriod', { start, end });
 }

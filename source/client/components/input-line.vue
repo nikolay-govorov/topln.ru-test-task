@@ -18,20 +18,18 @@
           start: new Date(),
           end: new Date()
         },
-
-        showCalendar: false,
       };
     },
 
     watch: {
       id() {
-        this.checkID()
-      }
-    },
-
-    methods: {
-      checkID() {
         this.$store.dispatch('checkUserID', this.id)
+      },
+
+      selectedDate() {
+        const { start, end } = this.selectedDate;
+
+        this.$store.dispatch('checkTimePeriod', { start, end });
       },
     },
   };

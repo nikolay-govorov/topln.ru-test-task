@@ -6,10 +6,18 @@ import * as mutations from './mutations';
 
 export default () => new Store({
   state: {
-    user: {
-      id: null,
+    loading: {
       error: false,
       loaded: false,
+    },
+
+    timePeriod: {
+      start: null,
+      end: null,
+    },
+
+    user: {
+      id: null,
       statistics: [],
     },
   },

@@ -1,12 +1,15 @@
 <template lang="pug">
   div
-    .message(v-if="user.error")
+    .message(v-if="loading.error")
       | Error loading statistics
 
     .message(v-else-if="!user.id")
       | Enter your user ID
 
-    .message(v-else-if="!user.loaded")
+    .message(v-else-if="!timePeriod.start || !timePeriod.end")
+      | Enter your time period
+
+    .message(v-else-if="!loading.loaded")
       | Loading...
 
     .message(v-else-if="!user.statistics.length")
@@ -24,7 +27,7 @@
   export default {
     name: 'Statistics',
 
-    computed: mapState(['user']),
+    computed: mapState(['user', 'loading', 'timePeriod']),
   };
 </script>
 

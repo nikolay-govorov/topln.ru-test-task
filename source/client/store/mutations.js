@@ -1,16 +1,21 @@
 export function setUserId(state, id) {
   state.user.id = id;
-  state.user.error = false;
-  state.user.loaded = false;
+  state.loading.error = false;
+  state.loading.loaded = false;
   state.user.statistics = [];
 }
 
 export function setUserStats(state, stats) {
   state.user.statistics = stats;
-  state.user.loaded = true;
+  state.loading.loaded = true;
 }
 
 export function userLoadingError(state) {
   state.user.error = true;
-  state.user.loaded = false;
+  state.loading.loaded = false;
+}
+
+export function setTimePeriod(state, { start, end }) {
+  state.timePeriod.start = start;
+  state.timePeriod.end = end;
 }
