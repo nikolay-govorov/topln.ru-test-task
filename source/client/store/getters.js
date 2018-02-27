@@ -12,6 +12,6 @@ export function currentStats({ user, timePeriod }) {
   return user.statistics.filter((record) => {
     const date = getTime(record.date);
 
-    return (date >= start && date <= end);
+    return record.event === 'PAYMENT' && (date >= start && date <= end);
   });
 }

@@ -10,8 +10,21 @@
       this.renderChart(this.data, {
         scales: {
           yAxes: [
-            { type:"linear", id: "count", display: true, position: "left" },
-            { type:"linear", id: "wallet", display: true, position: "right" }
+            {
+              type:"linear",
+              id: "count",
+              display: true,
+              position: "left",
+            },
+            {
+              type:"linear",
+              id: "wallet",
+              display: true,
+              position: "right",
+              ticks: {
+                callback: label => label.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' })
+              },
+            }
           ]
         },
         responsive: true,

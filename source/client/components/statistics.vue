@@ -16,9 +16,14 @@
       | There is no information available for the selected period
 
     .statistics(v-else)
-      div {{ currentStats }}
+      table.statistics_table
+        tbody
+          tr(:key="record.id" v-for="record in currentStats")
+            td CPA/ДОХОД
+            td {{ record.event_value.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }) }}
 
-      chart(:data="chartData")
+      div
+        chart(:data="chartData")
 </template>
 
 <script>
@@ -35,7 +40,7 @@
       ...mapState(['user', 'loading', 'timePeriod']),
 
       chartData() {
-        const COUNT = 90;
+        const COUNT = 30;
 
         let sample = this.user.statistics
           .filter(({ date }) => (Date.now() - new Date(date).getTime()) / 1000 / 60 / 60 / 24 <= COUNT)
@@ -70,17 +75,14 @@
             return ({ count, wallet });
           })
           .reduce((sample, { count, wallet }) => {
-            console.log(count, wallet);
-
             sample.count.push(count);
             sample.wallet.push(wallet);
 
             return sample;
           }, { count: [], wallet: [] });
 
-
         return {
-          labels: Array.from(new Array(30)).map((_, index) => index),
+          labels: Array.from(new Array(COUNT)).map((_, index) => index),
 
           datasets: [
             {
@@ -111,6 +113,23 @@
   .statistics {
     display: grid;
     grid-gap: var(--step);
-    grid-template-columns: minmax(380px, auto) 1fr;
+    grid-template-columns: minmax(auto, 380px) 1fr;
+  }
+
+  .statistics_table {
+    width: 100%;
+    border: 1px solid #eee;
+
+    tr:nth-child(2n) {
+      background-color: #eee;
+    }
+
+    td {
+      padding: var(--step);
+
+      &:last-child {
+        text-align: right;
+      }
+    }
   }
 </style>
