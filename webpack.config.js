@@ -7,7 +7,7 @@ const config = require('./source/lib/config');
 module.exports = {
   context: join(__dirname, 'source', 'client'),
 
-  entry: './index',
+  entry: ['babel-polyfill', './index'],
 
   devtool: config.get('env') === 'production' ? '#source-map' : '#eval-source-map',
 
