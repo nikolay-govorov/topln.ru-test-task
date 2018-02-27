@@ -18,9 +18,9 @@
     .statistics(v-else)
       table.statistics_table
         tbody
-          tr(:key="record.id" v-for="record in currentStats")
+          tr(:key="record.id" v-for="record in stats")
             td CPA/ДОХОД
-            td {{ record.event_value.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }) }}
+            td {{ record.event_value }}
 
       div
         chart(:data="chartData")
@@ -29,21 +29,32 @@
 <script>
   import { mapState, mapGetters } from 'vuex';
 
-  import Chart from './chart';
+  import Chart from './chart.vue';
 
   export default {
     name: 'Statistics',
+
+    components: { Chart },
 
     computed: {
       ...mapGetters(['currentStats', 'statisticsForLastMonth']),
 
       ...mapState(['user', 'loading', 'timePeriod']),
 
+      stats() {
+        return this.currentStats.map(record => ({
+          ...record,
+          event_value: record.event_value.toLocaleString('ru-RU', {
+            style: 'currency', currency: 'RUB',
+          }),
+        }));
+      },
+
       chartData() {
         const COUNT = 30;
 
-        let sample = this.user.statistics
-          .filter(({ date }) => (Date.now() - new Date(date).getTime()) / 1000 / 60 / 60 / 24 <= COUNT)
+        const sample = this.user.statistics
+          .filter(({ date }) => (Date.now() - new Date(date).getTime()) / 3600000 / 24 <= COUNT)
           .reduce((all, record) => {
             const date = new Date(record.date).toISOString().split('T')[0];
 
@@ -57,28 +68,28 @@
           }, {});
 
         const { count, wallet } = Array.from(new Array(COUNT))
-          .map((_, index) => Date.now() - index * 24 * 60 * 60 * 1000).reverse()
+          .map((_, index) => Date.now() - (index * 24 * 60 * 60 * 1000)).reverse()
           .map(date => new Date(date).toISOString().split('T')[0])
-          .map((date) => ({ date, sample: sample[date] || [] }))
-          .map(({ date, sample }, index) => {
-            let count = 0;
-            let wallet = 0;
+          .map(date => ({ date, sample: sample[date] || [] }))
+          .map(({ sample: daySample }) => {
+            let dayCount = 0;
+            let dayWallet = 0;
 
-            sample.forEach(({ event, event_value }) => {
+            daySample.forEach(({ event, event_value: value }) => {
               if (['LINK_VISITOR', 'REGISTRATION'].includes(event)) {
-                count += 1;
+                dayCount += 1;
               } else if (event === 'PAYMENT') {
-                wallet += event_value;
+                dayWallet += value;
               }
             });
 
-            return ({ count, wallet });
+            return ({ count: dayCount, wallet: dayWallet });
           })
-          .reduce((sample, { count, wallet }) => {
-            sample.count.push(count);
-            sample.wallet.push(wallet);
+          .reduce((s, day) => {
+            s.count.push(day.count);
+            s.wallet.push(day.wallet);
 
-            return sample;
+            return s;
           }, { count: [], wallet: [] });
 
         return {
@@ -94,14 +105,12 @@
               yAxisID: 'wallet',
               label: 'Wallet',
               borderColor: '#05CBE1',
-              data: wallet
-            }
-          ]
+              data: wallet,
+            },
+          ],
         };
       },
     },
-
-    components: { Chart },
   };
 </script>
 

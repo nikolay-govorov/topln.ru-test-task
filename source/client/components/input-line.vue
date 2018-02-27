@@ -16,14 +16,14 @@
 
         selectedDate: {
           start: new Date(),
-          end: new Date()
+          end: new Date(),
         },
       };
     },
 
     watch: {
       id() {
-        this.$store.dispatch('checkUserID', this.id)
+        this.$store.dispatch('checkUserID', this.id);
       },
 
       selectedDate() {

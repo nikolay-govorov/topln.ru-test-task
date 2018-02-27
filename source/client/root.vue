@@ -6,15 +6,11 @@
 </template>
 
 <script>
-  import InputLine from './components/input-line';
-  import Statistics from './components/statistics';
+  import InputLine from './components/input-line.vue';
+  import Statistics from './components/statistics.vue';
 
   export default {
     name: 'Root',
-
-    data() {
-      return {};
-    },
 
     components: { InputLine, Statistics },
   };

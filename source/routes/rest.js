@@ -14,7 +14,7 @@ router.get('/stats/:id', async (request, response) => {
     response.send({ error: 'ID must be number' }); return;
   }
 
-  connection.query(`SELECT * FROM stats WHERE partner_id = ${id}`, (error, results, fields) => {
+  connection.query(`SELECT * FROM stats WHERE partner_id = ${id}`, (error, results) => {
     if (error) {
       throw error;
     }

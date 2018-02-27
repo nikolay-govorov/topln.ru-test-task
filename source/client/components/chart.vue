@@ -1,35 +1,46 @@
 <script>
-  import { Line } from 'vue-chartjs'
+  import { Line } from 'vue-chartjs';
 
   export default {
     extends: Line,
 
-    props: ['data'],
+    props: {
+      data: {
+        type: Object,
+        default() {
+          return {
+            labels: [],
 
-    mounted () {
+            datasets: [],
+          };
+        },
+      },
+    },
+
+    mounted() {
       this.renderChart(this.data, {
         scales: {
           yAxes: [
             {
-              type:"linear",
-              id: "count",
+              type: 'linear',
+              id: 'count',
               display: true,
-              position: "left",
+              position: 'left',
             },
             {
-              type:"linear",
-              id: "wallet",
+              type: 'linear',
+              id: 'wallet',
               display: true,
-              position: "right",
+              position: 'right',
               ticks: {
-                callback: label => label.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' })
+                callback: label => label.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }),
               },
-            }
-          ]
+            },
+          ],
         },
         responsive: true,
-        maintainAspectRatio: false
-      })
+        maintainAspectRatio: false,
+      });
     },
   };
 </script>
