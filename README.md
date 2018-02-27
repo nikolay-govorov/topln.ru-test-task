@@ -2,8 +2,9 @@
 
 Test task for full stack JS developer position in the company topln.ru.
 
-# Usage
+## Usage
 
 1. Install dependencies: `npm install`
 2. Build client: `npm run build`
-3. Run server: `npm run start`
+3. Create `.env` file. Set current vars.
+4. Run server: `npm run start`
