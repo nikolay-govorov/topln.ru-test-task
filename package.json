@@ -24,8 +24,8 @@
     "jest": "^22.4.0",
     "mysql": "^2.15.0",
     "pug": "^2.0.0-rc.4",
+    "v-calendar": "^0.6.3",
     "vue": "^2.5.13",
-    "vue-md-date-picker": "ridewn/vue-date-picker",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

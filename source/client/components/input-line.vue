@@ -2,15 +2,11 @@
   .input-line
     input.input-line_input(v-model="id" placeholder="User ID" type="number")
 
-    img.input-line_icon(@click="showCalendar = true" src="../assets/images/calendar.svg")
-
-    // transition(name="calendar-fade")
-      date-picker(@close="showCalendar = false" v-show="showCalendar" v-model="date")
+    v-date-picker.input-line_data-picker(mode="range" v-model="selectedDate" show-caps)
+      img.input-line_icon(@click="showCalendar = true" src="../assets/images/calendar.svg")
 </template>
 
 <script>
-  import DatePicker from 'vue-md-date-picker';
-
   export default {
     name: 'InputLine',
 
@@ -18,7 +14,11 @@
       return {
         id: '',
 
-        date: null,
+        selectedDate: {
+          start: new Date(),
+          end: new Date()
+        },
+
         showCalendar: false,
       };
     },
@@ -28,8 +28,6 @@
         this.checkID()
       }
     },
-
-    components: { DatePicker },
 
     methods: {
       checkID() {
@@ -42,23 +40,26 @@
 <style lang="scss">
   .input-line {
     display: grid;
-    grid-template-columns: minmax(280px, 760px) min-content min-content;
+    grid-template-columns: minmax(280px, 760px) 1fr;
     grid-gap: var(--step);
     align-items: center;
     height: calc(var(--step) * 5);
 
-    &_icon,
     &_input {
       height: 100%;
-    }
-
-    &_input {
       font-size: var(--text-size-m);
       padding: 0 var(--step);
     }
 
+    &_data-picker {
+      display: flex !important;
+      align-items: center;
+    }
+
     &_icon {
       cursor: pointer;
+      margin-left: 2px;
+      height: calc(var(--step) * 4.5);
     }
   }
 </style>
